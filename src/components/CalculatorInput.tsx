@@ -1,8 +1,9 @@
+import { Input, theme } from "antd";
 import { useState } from "react";
-
+const { useToken } = theme;
 const CalculatorInput = ({ onChange, isX }) => {
   const [inputValue, setInputValue] = useState("");
-
+  const { token } = useToken();
   const handleChange = (e) => {
     const newValue = e.target.value;
     setInputValue(newValue);
@@ -11,14 +12,29 @@ const CalculatorInput = ({ onChange, isX }) => {
   if (isX) {
     return (
       <>
-        <input defaultValue="X" value="X" disabled />
+        <Input
+          className="CalculatorInput"
+          defaultValue="X"
+          value="X"
+          disabled
+          style={{
+            background: token.colorPrimaryBg,
+            color: token.colorPrimaryText,
+            borderColor: token.colorPrimaryBorder,
+          }}
+        />
       </>
     );
   }
 
   return (
     <>
-      <input type="number" onChange={handleChange} value={inputValue} />
+      <Input
+        className="CalculatorInput"
+        type="number"
+        onChange={handleChange}
+        value={inputValue}
+      />
     </>
   );
 };

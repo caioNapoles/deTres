@@ -1,9 +1,14 @@
 import { useState, useEffect } from "react";
 import CalculatorInput from "./CalculatorInput";
+import { Divider, Typography, Button, Flex, Space, theme } from "antd";
 
 let resultValue = 0;
+const { useToken } = theme;
+const { Text, Title } = Typography;
 
 const Calculator = () => {
+  const { token } = useToken();
+
   const [run, setRun] = useState(false);
   const [filledValues, setFilledValues] = useState(0);
   const [isRunDisabled, setIsRunDisabled] = useState(true);
@@ -81,21 +86,54 @@ const Calculator = () => {
 
   return (
     <>
-      <div className="Calculator">
-        <CalculatorInput id="variable1" onChange={handleVar1} isX={isVar1X} />
-        <h3> = </h3>
-        <CalculatorInput id="variable2" onChange={handleVar2} isX={isVar2X} />
-        <CalculatorInput id="variable3" onChange={handleVar3} isX={isVar3X} />
-        <h3> = </h3>
-        <CalculatorInput id="variable4" onChange={handleVar4} isX={isVar4X} />
-      </div>
-      <div>
-        <button onClick={handleRun} disabled={isRunDisabled}>
+      <Flex className="Calculator" align="center" vertical>
+        <Flex className="CalculatorInputRows" align="center">
+          <CalculatorInput id="variable1" onChange={handleVar1} isX={isVar1X} />
+          <Title level={3} type="secondary" className="EqualSign">
+            =
+          </Title>
+          <CalculatorInput id="variable2" onChange={handleVar2} isX={isVar2X} />
+        </Flex>
+        <Flex className="CalculatorInputRows" align="center">
+          <CalculatorInput id="variable1" onChange={handleVar3} isX={isVar3X} />
+          <Title level={3} type="secondary" className="EqualSign">
+            =
+          </Title>
+          <CalculatorInput id="variable2" onChange={handleVar4} isX={isVar4X} />
+        </Flex>
+
+        <Button
+          type="primary"
+          className="RunButton"
+          onClick={handleRun}
+          disabled={isRunDisabled}
+        >
           {" "}
           RUN
-        </button>
-        <h3>Result: {resultValue}</h3>
-      </div>
+        </Button>
+        <div style={{ padding: " 1rem" }}>
+          <Flex
+            className="ResultBox"
+            vertical
+            align="center"
+            style={{
+              background: token.colorSuccessBg,
+              color: token.colorSuccessText,
+            }}
+          >
+            <Title
+              level={3}
+              className="Result"
+              style={{
+                background: token.colorSuccessBg,
+                color: token.colorSuccessText,
+              }}
+            >
+              Result: {resultValue}
+            </Title>
+          </Flex>
+        </div>
+      </Flex>
     </>
   );
 };

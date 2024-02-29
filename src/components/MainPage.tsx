@@ -1,16 +1,19 @@
-import { Typography, Box } from "@mui/material";
+import { Flex, theme } from "antd";
 import Menu from "./Menu";
 import Calculator from "./Calculator";
 import Footer from "./Footer";
-import ParentComponent from "./MyComponent";
+
+const { useToken } = theme;
 
 function MainPage() {
+  const { token } = useToken();
+
   return (
-    <div>
+    <Flex className="MainPage" vertical align="center">
       <Menu />
-      <Calculator/>
+      <Calculator />
       <Footer />
-    </div>
+    </Flex>
   );
 }
 
